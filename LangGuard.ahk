@@ -15,7 +15,7 @@ CoordMode("Mouse", "Screen")
 ; ============================================================
 
 ; ---------- config ----------
-VERSION := "1.2.0"
+VERSION := "1.2.1"
 UPDATE_BASE := "https://raw.githubusercontent.com/yakov-design/lang-guard/main/latest"
 MIN_HE2EN := 3        ; min length to flag Hebrew-typed text that spells an English word
 MIN_EN2HE := 4        ; min length to flag English-typed text that is not an English word
