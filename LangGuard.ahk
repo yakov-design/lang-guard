@@ -15,7 +15,7 @@ CoordMode("Mouse", "Screen")
 ; ============================================================
 
 ; ---------- config ----------
-VERSION := "1.2.1"
+VERSION := "1.3.0"
 UPDATE_BASE := "https://raw.githubusercontent.com/yakov-design/lang-guard/main/latest"
 MIN_HE2EN := 3        ; min length to flag Hebrew-typed text that spells an English word
 MIN_EN2HE := 4        ; min length to flag English-typed text that is not an English word
@@ -26,6 +26,22 @@ OnError(LogError)
 LogError(e, mode) {
     try FileAppend(A_Now "  " e.Message " @ " e.File ":" e.Line "`n", A_ScriptDir "\error.log")
     return 1
+}
+
+; ---------- first-run self-install (lets people just download the exe from GitHub) ----------
+InstallSelf()
+InstallSelf() {
+    dest := EnvGet("LOCALAPPDATA") "\Lang-Guard"
+    if !A_IsCompiled || A_ScriptDir = dest
+        return
+    r := MsgBox("Install Lang-Guard so it starts automatically with Windows?`n`nYes = install + auto-start (recommended)`nNo = just run it this once", "Lang-Guard", "YesNo Iconi")
+    if r != "Yes"
+        return
+    DirCreate(dest)
+    FileCopy(A_ScriptFullPath, dest "\LangGuard.exe", 1)
+    FileCreateShortcut(dest "\LangGuard.exe", A_Startup "\Lang-Guard.lnk",,, "Lang-Guard HE/EN wrong-layout detector")
+    Run('"' dest '\LangGuard.exe"')
+    ExitApp
 }
 
 ; ---------- layout maps (standard SI-1452 Hebrew) ----------

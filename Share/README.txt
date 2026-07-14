@@ -9,12 +9,16 @@ What it does:
   F10 also works any time on the last words you typed, even without a bubble.
   Esc or clicking elsewhere dismisses the bubble.
 
-To install on a new computer:
-  1. Copy this whole folder to the computer.
-  2. Double-click "Install Lang-Guard.bat".
+To install on a new computer (easiest way):
+  1. Download LangGuard.exe from:
+     https://github.com/yakov-design/lang-guard/raw/main/latest/LangGuard.exe
+  2. Double-click it and answer "Yes" to install.
      (If Windows shows a blue "Windows protected your PC" screen,
       click "More info" then "Run anyway" — the app is unsigned, not dangerous.)
-  3. Done. It runs now and starts automatically with Windows.
+  3. Done. It runs now, starts automatically with Windows,
+     and updates itself when a new version is published.
+
+(Alternative: copy this folder and run "Install Lang-Guard.bat" — same result.)
 
 To pause or close it:
   Right-click the green tray icon (bottom-right, near the clock) —

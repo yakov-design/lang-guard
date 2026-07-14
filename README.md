@@ -3,6 +3,9 @@
 Catches the classic Hebrew/English mistake: you start typing before switching the keyboard
 language and get gibberish (e.g. `akuo kfuko` instead of `שלום לכולם`).
 
+## Install (any PC)
+**[Download LangGuard.exe](https://github.com/yakov-design/lang-guard/raw/main/latest/LangGuard.exe)**, double-click it, answer **Yes** to install — it auto-starts with Windows and keeps itself updated from this repo. (If Windows SmartScreen warns, click "More info" → "Run anyway".)
+
 ## What it does
 - Watches typing system-wide (AutoHotkey v2 keyboard hook — everything stays local, nothing leaves the PC).
 - When a word looks like wrong-layout gibberish, a **gold bubble** appears next to the caret (with a sound):
