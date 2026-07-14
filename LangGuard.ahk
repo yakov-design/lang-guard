@@ -15,7 +15,7 @@ CoordMode("Mouse", "Screen")
 ; ============================================================
 
 ; ---------- config ----------
-VERSION := "1.3.0"
+VERSION := "1.3.1"
 UPDATE_BASE := "https://raw.githubusercontent.com/yakov-design/lang-guard/main/latest"
 MIN_HE2EN := 3        ; min length to flag Hebrew-typed text that spells an English word
 MIN_EN2HE := 4        ; min length to flag English-typed text that is not an English word
@@ -38,7 +38,12 @@ InstallSelf() {
     if r != "Yes"
         return
     DirCreate(dest)
-    FileCopy(A_ScriptFullPath, dest "\LangGuard.exe", 1)
+    try {
+        FileCopy(A_ScriptFullPath, dest "\LangGuard.exe", 1)
+    } catch {   ; target exe is locked = already installed and running
+        MsgBox("Lang-Guard is already installed and running on this computer.", "Lang-Guard", "Iconi T5")
+        ExitApp
+    }
     FileCreateShortcut(dest "\LangGuard.exe", A_Startup "\Lang-Guard.lnk",,, "Lang-Guard HE/EN wrong-layout detector")
     Run('"' dest '\LangGuard.exe"')
     ExitApp
