@@ -15,7 +15,11 @@ CoordMode("Mouse", "Screen")
 ; ============================================================
 
 ; ---------- config ----------
-VERSION := "1.3.1"
+VERSION := "1.3.2"
+;@Ahk2Exe-SetVersion %A_PriorLine~U)^(.+"){1}(.+)".*$~$2%
+;@Ahk2Exe-SetProductName Lang-Guard
+;@Ahk2Exe-SetDescription Lang-Guard - Hebrew/English wrong-layout typing fixer
+;@Ahk2Exe-SetCompanyName Holy Estates
 UPDATE_BASE := "https://raw.githubusercontent.com/yakov-design/lang-guard/main/latest"
 MIN_HE2EN := 3        ; min length to flag Hebrew-typed text that spells an English word
 MIN_EN2HE := 4        ; min length to flag English-typed text that is not an English word
