@@ -1,0 +1,41 @@
+name: update open PRs
+
+# After every merge into main, merge main into each open PR aimed at it, so the next PR is
+# already up to date (no refresh round). Merge commit only, never rebase or force. A real
+# conflict leaves the PR's branch alone and comments the file names on the PR.
+# The notes files (wireframe, HANDOFF, DEPLOY-LEDGER) keep both sides through .gitattributes.
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write   # to start the tests on each updated PR (see DISPATCH_WORKFLOW)
+
+# One run at a time; a second merge waits for the first run instead of racing it.
+concurrency:
+  group: update-open-prs-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      # PR_UPDATE_TOKEN is optional. Without it the workflow's own token pushes, which GitHub
+      # does not allow for changes to .github/workflows (those PRs get a comment instead).
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PR_UPDATE_TOKEN || github.token }}
+
+      # A push made with the workflow's own token starts no other workflow, so the tests are
+      # started on each updated PR by hand. With PR_UPDATE_TOKEN the push starts them itself.
+      - name: Merge main into every open PR aimed at it
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          DISPATCH_WORKFLOW: ${{ secrets.PR_UPDATE_TOKEN == '' && 'tests.yml' || '' }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          python3 .github/update_open_prs.py "${{ github.ref_name }}"

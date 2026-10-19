@@ -1,0 +1,6 @@
+# Notes files every pull request appends to. On a merge, keep BOTH sides' lines instead of
+# stopping on a conflict (git's built-in union driver). Review the merged file afterwards:
+# two edits to the same line both survive, so the old line may need deleting by hand.
+PROJECT-WIREFRAME.md merge=union
+HANDOFF.md merge=union
+DEPLOY-LEDGER.md merge=union

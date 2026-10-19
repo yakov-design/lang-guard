@@ -1,7 +1,7 @@
 # Lang-Guard — HE/EN Wrong-Layout Typing Detector — PROJECT WIREFRAME
 
 > **Single source of truth.** Read this at the start of every session. Update it at the end of every slice.
-> Last updated: 2026-07-28 (parked the SmartScreen decision — see Next slice).
+> Last updated: 2026-10-19 (Slice 1, day-one plumbing). Slice numbers are PERMANENT (done slices keep theirs).
 
 ## Overview
 Catches typing in the wrong keyboard language (`akuo kfuko` instead of `שלום לכולם`). A gold bubble
@@ -22,6 +22,12 @@ keyboard language. F10 also works any time without a bubble. Esc/clicking dismis
 - Gotchas: `edit`/`run` are reserved AHK names; GitHub's raw CDN caches ~5 min (don't test an update immediately).
 
 ## Done (highlights)
+### Slice 1 — Day-one plumbing: tests run on every PR, and open PRs keep themselves up to date ✅ 2026-10-19
+- **What it fixes:** there was no shared way to run checks, and an open PR went stale whenever another one merged.
+- **What's new:** `run_tests.py` finds every `test_*.py` by itself; GitHub runs it on every PR. After each merge, every open PR gets the default branch merged in (a real conflict gets a comment instead). The notes files (this wireframe, HANDOFF.md, DEPLOY-LEDGER.md) keep both sides on a merge. `CLAUDE.md` holds these mechanics.
+- **How to use:** `python run_tests.py` locally; nothing else changes on the PC.
+- **Tested:** `python run_tests.py` passes (the PR updater's own check runs on a throwaway repo).
+
 - **v1.0–1.2 (2026-07-14)** — detection both directions (dictionary-based), bubble + F10 fix, multi-word
   burst fixing, layout switch, typo filters (impossible-Hebrew shapes, 1-letter-off English words),
   crash fix (removed MSAA caret lookup), bubble clamped to screen + flips above bottom-of-screen fields.
