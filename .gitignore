@@ -2,3 +2,7 @@ error.log
 *.old
 Lang-Guard-Share.zip
 Share/LangGuard.exe
+
+# --- Python ---
+__pycache__/
+*.pyc

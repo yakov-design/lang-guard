@@ -1,0 +1,24 @@
+name: tests
+
+# Only the self-contained checks run here. A check that needs the real data on Yakov's PC
+# carries "# runner: needs-real-data" and stays a local step (python run_tests.py --real).
+on:
+  push:
+    branches: [main]
+  pull_request:
+  # Started by update-open-prs.yml on each PR it brings up to date (its pushes start nothing).
+  workflow_dispatch:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Every test_*.py runs, found by name, so a new check edits nothing here.
+      - name: Every self-contained check
+        run: python run_tests.py
